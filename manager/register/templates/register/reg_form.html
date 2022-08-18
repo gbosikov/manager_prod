@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-147225311-2"></script>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
+  <meta name="author" content="Łukasz Holeczek">
+  <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,AngularJS,Angular,Angular2,Angular 2,Angular4,Angular 4,jQuery,CSS,HTML,RWD,Dashboard,React,React.js,Vue,Vue.js">
+  <meta name="google-site-verification" content="83fcqoPn-YTkXathQiicW-x3U2RWZh4PaPUzk91wtjY">
+  <title>Project System</title>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+  <link href="/static/core/css/simple-line-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+
+
+  <!-- Main styles for this application -->
+  <link href="/static/core/css/estilo.css" rel="stylesheet">
+  <link href="/static/core/css/style.css" rel="stylesheet">
+  <link href="/static/core/css/table-style.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/fixedheader/3.2.3/css/fixedHeader.dataTables.min.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+</head>
+{% load static %}
+
+<body>
+<div class="container animated fadeIn">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="card-group">
+                    <div class="card p-4 mb-5">
+                        <div class="card-body">
+                            {% if created %}
+                              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                                  Congratulations, a new user was created!
+                              </div>
+                            {% endif %}
+                                {% csrf_token %}
+                                <h1>Users</h1>
+                                <p class="text-muted">Create users here</p>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="input-group">
+                                {{ form.username }}
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                                {% if form.username.errors %}
+                                    <ol>
+                                    {% for error in form.username.errors %}
+                                        <li><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                {{ form.first_name }}
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                                {% if form.first_name.errors %}
+                                    <ol>
+                                    {% for error in form.first_name.errors %}
+                                        <li><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                {{ form.last_name }}
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                                {% if form.last_name.errors %}
+                                    <ol>
+                                    {% for error in form.last_name.errors %}
+                                        <li><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                {{ form.email }}
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                </div>
+                                {% if form.email.errors %}
+                                    <ol>
+                                    {% for error in form.email.errors %}
+                                        <li><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                {{ form.password1 }}
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                </div>
+                                {% if form.password1.errors %}
+                                    <ol>
+                                    {% for error in form.password1.errors %}
+                                        <li><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                {{ form.password2 }}
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                </div>
+
+                            </div>
+                            {% if form.password2.errors %}
+                                    <ol>
+                                    {% for error in form.password2.errors %}
+                                        <li><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                    </ol>
+                                {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                {{ form.department }}
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-industry"></i></span>
+                                </div>
+                                {% if form.department.errors %}
+                                    <ol>
+                                    {% for error in form.department.errors %}
+                                        <li><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                    </ol>
+                                {% endif %}
+                            </div>
+                        </div>
+
+
+                            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
+{#                            <button type="reset" class="btn btn-sm btn-danger"><a class="fa fa-ban"></a> Cancel</button>#}
+                            <a href="{% url 'core:login' %}">Already have account?</a>
+
+                    </form>
+                            {{ form.errors }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+{% extends 'core/index.html' %}
+{% load static %}
+{% block breadcrumb %}
+{% endblock breadcrumb%}
+{% block content %}
+<style>
+   h1 {
+   color:Green;
+   }
+   div.scroll {
+   margin:4px;
+   padding:4px;
+   width: 840px;
+   height: 500px;
+   overflow-x: hidden;
+   overflow-y: auto;
+   text-align:justify;
+   }
+</style>
+<section class="content">
+   <!-- Default box -->
+   <div class="card">
+      <div class="card-header">
+         <h3 class="card-title">Task Detail</h3>
+
+      </div>
+      <div class="card-body">
+         <div class="row">
+            <div class="col-12 col-md-12 col-lg-6 order-2 order-md-1">
+
+                  <div class="col-12">
+                     <h4>Task description</h4>
+                     <div class="post">
+                        <p class="text-muted">{{ description }}</p>
+                        <br>
+                        <div class="text-muted">
+                           <p class="text-sm">Title
+                              <b class="d-block">{{ title }}</b>
+                           </p>
+                           <p class="text-sm">Department
+                              <b class="d-block">{{ department }}</b>
+                           </p>
+                           <p class="text-sm">Owner
+                              <b class="d-block">{{ owner }}</b>
+                           </p>
+                            <p class="text-sm">Responsible person
+                              <b class="d-block">{{ resp_person }}</b>
+                           </p>
+                        </div>
+                     </div>
+                     <div class="post">
+                        <h5 class="mt-5 text-muted">Task files</h5>
+                        <div class="card">
+
+                           <div class="card-header">
+                           </div>
+                           <div class="card-body p-0">
+
+                              <table class="table table-sm">
+                                 <thead>
+                                    <tr>
+                                       <th>File name</th>
+                                       <th>User</th>
+                                       <th>Add date</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                 {% for row in task_files %}
+                                    <tr>
+                                       <td><a class="btn btn-primary btn-sm" href="{{ row.file.url }}">{{ row.file_name }}</a></td>
+                                       <td>{{ row.user }}</td>
+                                       <td>{{ row.add_date|date:"d-m-Y h:m:s" }}</td>
+                                    </tr>
+                                     {% endfor %}
+                                 </tbody>
+
+                              </table>
+                           </div>
+
+                           <!-- /.card-body -->
+                        </div>
+                        <!-- /.user-block -->
+                     </div>
+                  </div>
+
+            </div>
+            <div class="col-13 col-md-13 col-lg-6 order-1 order-md-2">
+            <div class="col-13">
+
+               <div class="scroll">
+                  <div class="card-footer">
+                     <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="img-push">
+                           <label for="comment">
+                           </label>
+                           <input type="text" class="form-control form-control-sm" name="comment" placeholder="Press enter to comment">
+                        </div>
+                     </form>
+                  </div>
+                  <div class="card-footer card-comments">
+                     <div class="card-comment">
+                        {% for comment in task_comments %}
+                        <div class="comment-text">
+                           <span class="username">
+                           {{ comment.user }}
+                           <span class="text-muted float-right">{{ comment.add_date|date:"d-m-Y h:m:s" }}</span>
+                           </span>
+                           {{ comment.comment }}
+                        </div>
+                        {% endfor %}
+                     </div>
+                  </div>
+               </div>
+               <br>
+            </div>
+            </div>
+         </div>
+      </div>
+
+   </div>
+
+</section>
+{% endblock %}

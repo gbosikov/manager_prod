@@ -1,0 +1,61 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block breadcrumb %}
+{% endblock breadcrumb%}
+
+{% block content %}
+<main class="content">
+                    <form action="." method="get">
+                        <div class="input-group">
+                        </div>
+                    </form>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="table" class="table table-centered table-nowrap mb-0 rounded">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="border-0" width="100">Number</th>
+                                <th class="border-0">Title</th>
+                                <th class="border-0">Description</th>
+                                <th class="border-0">State</th>
+                                <th class="border-0">Add date</th>
+                                <th class="border-0">Dead line</th>
+                                <th class="border-0">Owner</th>
+                                <th class="border-0">Department</th>
+                                <th class="border-0">Responsible person</th>
+                                <th class="border-0">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Item -->
+                            {% for task in tasks %}
+                            <tr>
+                                <td class="border-0" >{{ task.id }}</td>
+                                <td class="border-0" width="100"><a href="{% url 'register:show-task' task.pk %}" class="text-primary font-weight-bold">{{ task.task_name|linebreaks|truncatewords:2 }}</a></td>
+                                <td class="border-0">{{ task.description|linebreaks|truncatewords:7 }}</td>
+                                <td class="border-0">{{ task.status }}</td>
+                                <td class="border-0" width="100">{{ task.add_date|date:"d-m-Y" }}</td>
+                                <td class="border-0" width="100">{{ task.dead_line|date:"d-m-Y" }}</td>
+                                <td class="border-0 text-success">{{ task.user.username }}</td>
+                                <td class="border-0 text-success">{{ task.department }}</td>
+                                <td class="border-0 text-success">{{ task.resp_person }}</td>
+                                <td class="border-0 text-success">
+                                    <a class="btn btn-primary btn-sm" href="{% url 'register:show-task' task.pk %}">
+                                    View
+                                    </a>
+                                    {% if user.is_authenticated and task.status_id == 1 %}
+                                    <a class="btn btn-info btn-sm" href="{% url 'register:edit-task' task.pk %}">
+                                    Edit
+                                    </a>
+                                    {% endif %}
+                                    </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+    </main>
+    {% endblock %}
